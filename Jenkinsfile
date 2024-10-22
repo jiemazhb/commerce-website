@@ -35,7 +35,9 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                // 部署步骤，视具体情况而定
+                echo 'Starting local deployment...'
+                sh 'docker-compose up -d'  // 启动所有服务
+                echo 'Services are up and running on your local machine.'
             }
         }
     }
