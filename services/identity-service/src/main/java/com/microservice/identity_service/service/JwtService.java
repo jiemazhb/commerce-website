@@ -78,7 +78,7 @@ public class JwtService {
 
 
     // 验证 Refresh Token 是否有效
-    private final long jwtExpirationInMs = 1800000;   // Access Token 1800000 过期时间 (例如30分钟) 120000  2 minutes
+    private final long jwtExpirationInMs = 120000;   // Access Token 1800000 过期时间 (例如30分钟) 120000  2 minutes
     private final long refreshTokenExpirationInMs = 604800000; // Refresh Token 过期时间 (7天)
 
     public boolean validateRefreshToken(String token) {
