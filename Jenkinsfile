@@ -11,14 +11,14 @@ pipeline {
 
         stage('Build') {
             steps {
-                // 编译项目（Windows系统下使用批处理命令）
-                bat './mvnw clean package -DskipTests'
+                // 编译项目
+                bat 'mvnw.cmd clean package -DskipTests'
             }
         }
 
         stage('Start Services') {
             steps {
-                // 启动服务（使用批处理命令）
+                // 启动服务
                 bat 'docker-compose up -d config-server'
                 bat 'docker-compose up -d discovery'
                 bat 'docker-compose up -d customer identity-service product gateway'
@@ -28,16 +28,15 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                // 运行测试（使用批处理命令）
-                bat './mvnw test'
+                // 运行测试
+                bat 'mvnw.cmd test'
             }
         }
 
         stage('Deploy') {
             steps {
                 echo 'Starting local deployment...'
-                // 启动所有服务
-                bat 'docker-compose up -d'
+                bat 'docker-compose up -d'  // 启动所有服务
                 echo 'Services are up and running on your local machine.'
             }
         }
@@ -45,7 +44,7 @@ pipeline {
 
     post {
         always {
-            // 任务结束后，停止并移除容器（使用批处理命令）
+            // 任务结束后，停止并移除容器
             bat 'docker-compose down'
         }
         success {
