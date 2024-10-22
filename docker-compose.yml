@@ -36,7 +36,8 @@
         stage('Deploy') {
         steps {
         // 根据需要定义部署步骤
-        echo 'Deployment steps go here...'
+        sh 'java -jar target/your-app.jar'
+        echo 'Application deployed and running locally!'
     }
     }
     }
