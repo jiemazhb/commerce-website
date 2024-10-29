@@ -12,7 +12,7 @@ pipeline {
         stage('Build') {
             steps {
                 // 编译项目
-                bat 'mvnw.cmd clean package -DskipTests'
+                bat 'C:\\path\\to\\project\\mvnw.cmd clean package -DskipTests'
             }
         }
 
@@ -29,7 +29,7 @@ pipeline {
         stage('Run Tests') {
             steps {
                 // 运行测试
-                bat 'mvnw.cmd test'
+                bat 'C:\\path\\to\\project\\mvnw.cmd test'
             }
         }
 

@@ -1,4 +1,20 @@
 services:
+        config-server:
+                build:
+                        context: ./services/config-server
+                ports:
+                        - "8888:8888"
+#        first 8888 refers to the host machine's port,
+#        second 8888 refers to the container's internal port (the one set in both application.yml and EXPOSE)
+        discovery-service:
+                build:
+                        context: ./services/discovery
+                ports:
+                        - "8761:8761"
+
+        # Add entries for other services similarly
+
+
         postgresql:
                 container_name: ms_pg_sql
                 image: postgres
