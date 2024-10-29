@@ -1,23 +1,78 @@
+
 services:
         config-server:
                 build:
                         context: ./services/config-server
                 ports:
                         - "8888:8888"
-#        first 8888 refers to the host machine's port,
-#        second 8888 refers to the container's internal port (the one set in both application.yml and EXPOSE)
+                networks:
+                        - my-network
+
         discovery-service:
                 build:
                         context: ./services/discovery
                 ports:
                         - "8761:8761"
+                networks:
+                        - my-network
+
         gateway-service:
                 build:
                         context: ./services/gateway
                 ports:
                         - "8222:8222"
+                networks:
+                        - my-network
 
-        # Add entries for other services similarly
+        customer-service:
+                build:
+                        context: ./services/customer
+                ports:
+                        - "8090:8090"
+                networks:
+                        - my-network
+
+        identity-service:
+                build:
+                        context: ./services/identity-service
+                ports:
+                        - "9898:9898"
+                networks:
+                        - my-network
+
+        notification-service:
+                build:
+                        context: ./services/notification
+                ports:
+                        - "8040:8040"
+                networks:
+                        - my-network
+
+        order-service:
+                build:
+                        context: ./services/order
+                ports:
+                        - "8070:8070"
+                networks:
+                        - my-network
+
+        payment-service:
+                build:
+                        context: ./services/payment
+                ports:
+                        - "8061:8061"
+                networks:
+                        - my-network
+
+        product-service:
+                build:
+                        context: ./services/product
+                ports:
+                        - "8050:8050"
+                networks:
+                        - my-network
+
+                        # Add entries for other services similarly
 
 
         postgresql:
@@ -116,6 +171,8 @@ services:
                         - 1025:1025
 
 networks:
+        my-network:
+                driver: bridge
         microservices-net:
                 driver: bridge
 

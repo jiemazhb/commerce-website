@@ -35,7 +35,7 @@ USER appuser
 
 # Copy only the JAR from the build stage
 # 从构建阶段复制生成的 JAR 文件
-COPY --from=build /app/target/customer-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /app/target/payment-0.0.1-SNAPSHOT.jar app.jar
 # 从上一个阶段的 /app/target 目录中复制生成的 JAR 文件到当前阶段的 /app 目录中，命名为 app.jar
 
 # Environment and JVM options
@@ -43,7 +43,7 @@ COPY --from=build /app/target/customer-0.0.1-SNAPSHOT.jar app.jar
 ENV JAVA_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0"
 # 设置 JAVA_OPTS 环境变量，指定 JVM 在容器中的优化选项，例如支持容器内存限制，并将最大内存使用量限制为容器内存的 75%
 
-EXPOSE 8090
+EXPOSE 8061
 # 声明容器要监听的端口，这里是 8090 端口，用于外部访问
 
 # Health check

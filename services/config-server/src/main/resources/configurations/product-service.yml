@@ -3,7 +3,8 @@ server:
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${DB_HOST:localhost}:3306/product
+#    url: jdbc:mysql://${DB_HOST:localhost}:3306/product
+    url: jdbc:mysql://host.docker.internal:3306/product
     username: root
     password: Zhb290798466@
 
