@@ -11,6 +11,11 @@ services:
                         context: ./services/discovery
                 ports:
                         - "8761:8761"
+        gateway-service:
+                build:
+                        context: ./services/gateway
+                ports:
+                        - "8222:8222"
 
         # Add entries for other services similarly
 
