@@ -2,7 +2,10 @@
 
 eureka:
   instance:
-    hostname: localhost
+#    hostname: localhost
+    hostname: discovery-service
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 30
   client:
     service-url:
 #      defaultZone: http://localhost:8761/eureka
@@ -20,3 +23,5 @@ management:
   tracing:
     sampling:
       probability: 1.0
+
+

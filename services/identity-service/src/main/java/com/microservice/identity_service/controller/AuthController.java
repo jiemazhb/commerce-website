@@ -75,6 +75,7 @@ public ResponseEntity<?> login(@RequestBody AuthRequest authRequest) {
 
     @GetMapping("/validate")
     public String validateToken(@RequestParam("token") String token){
+        System.out.println("验证 otken ");
         this.service.volidateToken(token);
         return "Token is valid";
     }

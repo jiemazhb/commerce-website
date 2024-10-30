@@ -1,76 +1,85 @@
 
 services:
         config-server:
+                container_name: config-server
                 build:
                         context: ./services/config-server
                 ports:
                         - "8888:8888"
                 networks:
-                        - my-network
+                        - microservices-net
 
         discovery-service:
+                container_name: discovery-service
                 build:
                         context: ./services/discovery
                 ports:
                         - "8761:8761"
                 networks:
-                        - my-network
+                        - microservices-net
 
         gateway-service:
+                container_name: gateway-service
                 build:
                         context: ./services/gateway
                 ports:
                         - "8222:8222"
                 networks:
-                        - my-network
+                        - microservices-net
 
         customer-service:
+                container_name: customer-service
                 build:
                         context: ./services/customer
                 ports:
                         - "8090:8090"
                 networks:
-                        - my-network
+                        - microservices-net
 
         identity-service:
+                container_name: identity-service
                 build:
                         context: ./services/identity-service
                 ports:
                         - "9898:9898"
                 networks:
-                        - my-network
+                        - microservices-net
 
         notification-service:
+                container_name: notification-service
                 build:
                         context: ./services/notification
                 ports:
                         - "8040:8040"
                 networks:
-                        - my-network
+                        - microservices-net
 
         order-service:
+                container_name: order-service
                 build:
                         context: ./services/order
                 ports:
                         - "8070:8070"
                 networks:
-                        - my-network
+                        - microservices-net
 
         payment-service:
+                container_name: payment-service
                 build:
                         context: ./services/payment
                 ports:
                         - "8061:8061"
                 networks:
-                        - my-network
+                        - microservices-net
 
         product-service:
+                container_name: product-service
                 build:
                         context: ./services/product
                 ports:
                         - "8050:8050"
                 networks:
-                        - my-network
+                        - microservices-net
 
                         # Add entries for other services similarly
 
@@ -159,7 +168,8 @@ services:
                         KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
                         KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
                         KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-                        KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+                        KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://ms_kafka:9092
+#                        KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
                 networks:
                         - microservices-net
 
@@ -171,9 +181,8 @@ services:
                         - 1025:1025
 
 networks:
-        my-network:
-                driver: bridge
         microservices-net:
+                external: true
                 driver: bridge
 
 volumes:

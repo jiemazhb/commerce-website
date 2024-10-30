@@ -41,6 +41,7 @@ public class ProductController {
     }
     @GetMapping
     public ResponseEntity<List<ProductResponse>> findAll(){
+        System.out.println("获得产品信息");
         return ResponseEntity.ok(this.service.findAll());
     }
 }

@@ -15,11 +15,13 @@ public class JwtAuthenticationManager implements ReactiveAuthenticationManager {
     private final WebClient webClient;
 
     public JwtAuthenticationManager(WebClient.Builder webClientBuilder) {
+        System.out.println("我在哪");
         this.webClient = webClientBuilder.baseUrl("http://localhost:9898").build(); // 替换为你的 identity service 地址
     }
 
     @Override
     public Mono<Authentication> authenticate(Authentication authentication) {
+        System.out.println("为什么不行");
         String token = (String) authentication.getCredentials();
         System.out.println("调用后端验证token");
         return webClient.get()

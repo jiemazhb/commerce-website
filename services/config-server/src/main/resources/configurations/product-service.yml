@@ -8,16 +8,9 @@ spring:
     username: root
     password: Zhb290798466@
 
-#    driver-class-name: org.postgresql.Driver
-#    url: jdbc:postgresql://localhost:5432/product
-#    username: alibou
-#    password: alibou
   jpa:
     hibernate:
       ddl-auto: update
-#    database: postgresql
-#    database: mysql
-#    database-platform: org.hibernate.dialect.PostgreSQLDialect
     database-platform: org.hibernate.dialect.MySQL8Dialect
 #  flyway:
 #    baseline-on-migrate: true

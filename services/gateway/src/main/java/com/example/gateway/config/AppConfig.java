@@ -8,6 +8,7 @@ import org.springframework.web.client.RestTemplate;
 public class AppConfig {
     @Bean
     public RestTemplate template(){
+        System.out.println("调用了吗");
         return new RestTemplate();
     }
 
