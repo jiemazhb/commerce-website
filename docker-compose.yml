@@ -8,6 +8,10 @@ services:
                         - "8888:8888"
                 networks:
                         - microservices-net
+                environment:
+                        - EUREKA_SERVER_ADDRESS=http://discovery-service:8761/eureka
+                depends_on:
+                        - discovery-service
 
         discovery-service:
                 container_name: discovery-service
@@ -18,6 +22,8 @@ services:
                 networks:
                         - microservices-net
 
+
+
         gateway-service:
                 container_name: gateway-service
                 build:
@@ -26,6 +32,11 @@ services:
                         - "8222:8222"
                 networks:
                         - microservices-net
+                environment:
+                        - EUREKA_SERVER_ADDRESS=http://discovery-service:8761/eureka
+                depends_on:
+                        - config-server
+                command: ["dockerize", "-wait", "http://config-server:8888/actuator/health", "-timeout", "30s", "java", "-jar", "/app/app.jar"]
 
         customer-service:
                 container_name: customer-service
@@ -35,6 +46,10 @@ services:
                         - "8090:8090"
                 networks:
                         - microservices-net
+                environment:
+                        - EUREKA_SERVER_ADDRESS=http://discovery-service:8761/eureka
+                depends_on:
+                        - config-server
 
         identity-service:
                 container_name: identity-service
@@ -44,6 +59,10 @@ services:
                         - "9898:9898"
                 networks:
                         - microservices-net
+                environment:
+                        - EUREKA_SERVER_ADDRESS=http://discovery-service:8761/eureka
+                depends_on:
+                        - config-server
 
         notification-service:
                 container_name: notification-service
@@ -53,6 +72,10 @@ services:
                         - "8040:8040"
                 networks:
                         - microservices-net
+                environment:
+                        - EUREKA_SERVER_ADDRESS=http://discovery-service:8761/eureka
+                depends_on:
+                        - config-server
 
         order-service:
                 container_name: order-service
@@ -62,6 +85,10 @@ services:
                         - "8070:8070"
                 networks:
                         - microservices-net
+                environment:
+                        - EUREKA_SERVER_ADDRESS=http://discovery-service:8761/eureka
+                depends_on:
+                        - config-server
 
         payment-service:
                 container_name: payment-service
@@ -71,6 +98,10 @@ services:
                         - "8061:8061"
                 networks:
                         - microservices-net
+                environment:
+                        - EUREKA_SERVER_ADDRESS=http://discovery-service:8761/eureka
+                depends_on:
+                        - config-server
 
         product-service:
                 container_name: product-service
@@ -80,8 +111,10 @@ services:
                         - "8050:8050"
                 networks:
                         - microservices-net
-
-                        # Add entries for other services similarly
+                environment:
+                        - EUREKA_SERVER_ADDRESS=http://discovery-service:8761/eureka
+                depends_on:
+                        - config-server
 
 
         postgresql:

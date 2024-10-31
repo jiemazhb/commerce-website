@@ -2,14 +2,12 @@
 
 eureka:
   instance:
-#    hostname: localhost
-    hostname: discovery-service
-    lease-renewal-interval-in-seconds: 10
-    lease-expiration-duration-in-seconds: 30
+    prefer-ip-address: true
   client:
+    fetch-registry: true
+    register-with-eureka: true
     service-url:
-#      defaultZone: http://localhost:8761/eureka
-      defaultZone: http://discovery-service:8761/eureka
+      defaultZone: ${EUREKA_SERVER_ADDRESS:http://discovery-service:8761/eureka}
 
 name:
   value: alibou
@@ -25,3 +23,14 @@ management:
       probability: 1.0
 
 
+
+#eureka:
+#  instance:
+##    hostname: localhost
+#    hostname: discovery-service
+#    lease-renewal-interval-in-seconds: 10
+#    lease-expiration-duration-in-seconds: 30
+#  client:
+#    service-url:
+##      defaultZone: http://localhost:8761/eureka
+#      defaultZone: http://discovery-service:8761/eureka

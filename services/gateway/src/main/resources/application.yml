@@ -1,9 +1,10 @@
-
 spring:
+  config:
+    #    import: optional:configserver:http://localhost:8888   # for local machine
+    import: optional:configserver:http://config-server:8888 # for docker
   application:
     name: gateway-service
 
-  config:
-#    import: optional:configserver:http://localhost:8888   # for local machine
-    import: optional:configserver:http://config-server:8888 # for docker
+
+
 
