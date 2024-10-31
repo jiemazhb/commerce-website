@@ -48,8 +48,15 @@ services:
                         - microservices-net
                 environment:
                         - EUREKA_SERVER_ADDRESS=http://discovery-service:8761/eureka
+                        - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/customer
+                        - SPRING_DATASOURCE_USERNAME=root
+                        - SPRING_DATASOURCE_PASSWORD=Zhb290798466@
                 depends_on:
                         - config-server
+                        - mysql
+                command: ["dockerize", "-wait", "http://config-server:8888/actuator/health", "-wait", "tcp://mysql-container:3306", "-timeout", "40s", "java", "-jar", "/app/app.jar"]
+
+                restart: on-failure
 
         identity-service:
                 container_name: identity-service
@@ -61,8 +68,15 @@ services:
                         - microservices-net
                 environment:
                         - EUREKA_SERVER_ADDRESS=http://discovery-service:8761/eureka
+                        - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/javatechie
+                        - SPRING_DATASOURCE_USERNAME=root
+                        - SPRING_DATASOURCE_PASSWORD=Zhb290798466@
                 depends_on:
                         - config-server
+                        - mysql
+                command: ["dockerize", "-wait", "http://config-server:8888/actuator/health", "-wait", "tcp://mysql-container:3306", "-timeout", "40s", "java", "-jar", "/app/app.jar"]
+
+
 
         notification-service:
                 container_name: notification-service
@@ -76,6 +90,7 @@ services:
                         - EUREKA_SERVER_ADDRESS=http://discovery-service:8761/eureka
                 depends_on:
                         - config-server
+                command: ["dockerize", "-wait", "http://config-server:8888/actuator/health", "-timeout", "30s", "java", "-jar", "/app/app.jar"]
 
         order-service:
                 container_name: order-service
@@ -87,8 +102,14 @@ services:
                         - microservices-net
                 environment:
                         - EUREKA_SERVER_ADDRESS=http://discovery-service:8761/eureka
+                        - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/order
+                        - SPRING_DATASOURCE_USERNAME=root
+                        - SPRING_DATASOURCE_PASSWORD=Zhb290798466@
                 depends_on:
                         - config-server
+                        - mysql
+
+                command: ["dockerize", "-wait", "http://config-server:8888/actuator/health", "-wait", "tcp://mysql-container:3306", "-timeout", "40s", "java", "-jar", "/app/app.jar"]
 
         payment-service:
                 container_name: payment-service
@@ -100,8 +121,13 @@ services:
                         - microservices-net
                 environment:
                         - EUREKA_SERVER_ADDRESS=http://discovery-service:8761/eureka
+                        - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/payment
+                        - SPRING_DATASOURCE_USERNAME=root
+                        - SPRING_DATASOURCE_PASSWORD=Zhb290798466@
                 depends_on:
                         - config-server
+                        - mysql
+                command: ["dockerize", "-wait", "http://config-server:8888/actuator/health", "-wait", "tcp://mysql-container:3306", "-timeout", "40s", "java", "-jar", "/app/app.jar"]
 
         product-service:
                 container_name: product-service
@@ -113,39 +139,30 @@ services:
                         - microservices-net
                 environment:
                         - EUREKA_SERVER_ADDRESS=http://discovery-service:8761/eureka
+                        - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/product
+                        - SPRING_DATASOURCE_USERNAME=root
+                        - SPRING_DATASOURCE_PASSWORD=Zhb290798466@
                 depends_on:
                         - config-server
+                        - mysql
+                command: ["dockerize", "-wait", "http://config-server:8888/actuator/health", "-wait", "tcp://mysql-container:3306", "-timeout", "40s", "java", "-jar", "/app/app.jar"]
 
 
-        postgresql:
-                container_name: ms_pg_sql
-                image: postgres
+        # MySQL 实例 1
+
+        mysql:
+                image: mysql:latest
+                container_name: mysql-container
                 environment:
-                        POSTGRES_USER: alibou
-                        POSTGRES_PASSWORD: alibou
-                        PGDATA: /data/postgres
+                        MYSQL_ROOT_PASSWORD: Zhb290798466@
                 volumes:
-                        - postgres:/data/postgres
+                        - ./all_databases.sql:/docker-entrypoint-initdb.d/all_databases.sql
+                        - mysql_data:/var/lib/mysql  # 持久化MySQL数据
                 ports:
-                        - "5432:5432"
+                        - "3307:3306"
                 networks:
                         - microservices-net
-                restart: unless-stopped
 
-        pgadmin:
-                container_name: ms_pgadmin
-                image: dpage/pgadmin4
-                environment:
-                        PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
-                        PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
-                        PGADMIN_CONFIG_SERVER_MODE: 'False'
-                volumes:
-                        - pgadmin:/var/lib/pgadmin
-                ports:
-                        - "5050:80"
-                networks:
-                        - microservices-net
-                restart: unless-stopped
 
         zipkin:
                 container_name: zipkin
@@ -155,27 +172,6 @@ services:
                 networks:
                         - microservices-net
 
-        mongodb:
-                image: mongo
-                container_name: mongo_db
-                ports:
-                        - 27017:27017
-                volumes:
-                        - mongo:/data
-                environment:
-                        - MONGO_INITDB_ROOT_USERNAME=alibou
-                        - MONGO_INITDB_ROOT_PASSWORD=alibou
-
-        mongo-express:
-                image: mongo-express
-                container_name: mongo_express
-                restart: always
-                ports:
-                        - 8081:8081
-                environment:
-                        - ME_CONFIG_MONGODB_ADMINUSERNAME=alibou
-                        - ME_CONFIG_MONGODB_ADMINPASSWORD=alibou
-                        - ME_CONFIG_MONGODB_SERVER=mongodb
 
         zookeeper:
                 image: confluentinc/cp-zookeeper:latest
@@ -219,6 +215,4 @@ networks:
                 driver: bridge
 
 volumes:
-        postgres:
-        pgadmin:
-        mongo:
+        mysql_data:

@@ -24,7 +24,12 @@ FROM openjdk:17-slim
 
 WORKDIR /app
 # 设置工作目录为 /app，将应用文件放置在该目录下
-
+# Install curl and wget, then install dockerize
+USER root
+RUN apt-get update && apt-get install -y curl wget && rm -rf /var/lib/apt/lists/*
+RUN wget https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz \
+    && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-v0.6.1.tar.gz \
+    && rm dockerize-linux-amd64-v0.6.1.tar.gz
 # Set non-root user for security
 # 创建一个非root用户以提升安全性
 RUN adduser --system --group --no-create-home appuser

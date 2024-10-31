@@ -1,6 +1,5 @@
 # Stage 1: Build the application
 # 阶段1：构建应用程序
-#FROM maven:3.8.4-openjdk-17 AS build
 FROM maven:3.8.4-eclipse-temurin-17 AS build
 # 使用 Maven 3.8.4 和 OpenJDK 11 的镜像作为构建阶段的基础镜像
 
@@ -18,12 +17,19 @@ RUN mvn clean package -DskipTests
 
 # Stage 2: Run the application
 # 阶段2：运行应用程序
-#FROM openjdk:17-jre-slim
 FROM openjdk:17-slim
 # 使用轻量级的 OpenJDK 11 JRE 镜像作为运行阶段的基础镜像
 
 WORKDIR /app
 # 设置工作目录为 /app，将应用文件放置在该目录下
+
+# Install dockerize
+# 安装 dockerize
+USER root
+RUN apt-get update && apt-get install -y curl wget && rm -rf /var/lib/apt/lists/*
+RUN wget https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz \
+    && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-v0.6.1.tar.gz \
+    && rm dockerize-linux-amd64-v0.6.1.tar.gz
 
 # Set non-root user for security
 # 创建一个非root用户以提升安全性
@@ -49,9 +55,9 @@ EXPOSE 8090
 # Health check
 # 配置健康检查
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-  CMD curl -f http://localhost:8080/actuator/health || exit 1
+  CMD curl -f http://localhost:8090/actuator/health || exit 1
 # 设置健康检查，每隔 30 秒检查一次，超时时间为 5 秒，启动初期等待 10 秒，重试 3 次
 # 使用 curl 请求应用的健康检查端点（例如 Spring Boot 的 /actuator/health），如果失败则返回状态码 1 表示容器不健康
 
-CMD ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
-# 启动应用，执行 Java 命令，使用 JAVA_OPTS 参数并运行 app.jar 文件
+CMD ["sh", "-c", "dockerize -wait tcp://customer_database:3306 -timeout 60s java $JAVA_OPTS -jar app.jar"]
+# 启动应用，使用 dockerize 等待数据库连接可用后再执行 Java 命令，使用 JAVA_OPTS 参数并运行 app.jar 文件
