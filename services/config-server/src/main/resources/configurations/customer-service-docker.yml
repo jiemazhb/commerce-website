@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://customer_database:3306/customer
+    username: root
+    password: Zhb290798466@

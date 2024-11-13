@@ -1,14 +1,5 @@
 
 
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    fetch-registry: true
-    register-with-eureka: true
-    service-url:
-      defaultZone: ${EUREKA_SERVER_ADDRESS:http://discovery-service:8761/eureka}
-
 name:
   value: alibou
 

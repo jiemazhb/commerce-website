@@ -24,13 +24,13 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/ `javatechie` /*!40100 DEFAULT CHARACTER
 USE `javatechie`;
 
 --
--- Table structure for table `usercredential`
+-- Table structure for table `UserCredential`
 --
 
-DROP TABLE IF EXISTS `usercredential`;
+DROP TABLE IF EXISTS `UserCredential`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `usercredential` (
+CREATE TABLE `UserCredential` (
   `id` int NOT NULL AUTO_INCREMENT,
   `email` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
@@ -40,13 +40,13 @@ CREATE TABLE `usercredential` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `usercredential`
+-- Dumping data for table `UserCredential`
 --
 
-LOCK TABLES `usercredential` WRITE;
-/*!40000 ALTER TABLE `usercredential` DISABLE KEYS */;
-INSERT INTO `usercredential` VALUES (1,'123@gmail.com','Danny','$2a$10$1HvcDAqF0S4fs4CfigOxQuMsYkum6sUR53JKcpup9hmy4RwcBAPXO'),(2,'Tina@gmail.com','Tina','$2a$10$3tmiMWDEtky8saKr3DVLD.nPKXNyIr8uwQ/Wf1NE/21ByCqSqWS56'),(3,'Zachary@gmail.com','Zachary','$2a$10$N3wDCvxV.WeMMEuYOs3q0ukU1S7Ycnw02nR.uSnchLDt9yOghvbf2'),(4,'Lucy@gmail.com',NULL,'$2a$10$zfYqhaLMLN.aR5fMGFVVsuKPqTO7ivswQrmKGLHzyRcUr5FnXEIDm'),(5,'Peter@gmail.com',NULL,'$2a$10$M6eYuxQoLqPd/fnhw8ZgfODOFvVpmWMCnwXryCwF0vNfwkckXjw02'),(6,'Newbie@gmail.com','Newbie','$2a$10$fESxiHcMGVyNu4gRkEV/xuWTkC.iwqToyE1EJkQHfVEwS4rsmgEoS'),(7,'Newbie1@gmail.com','Newbie1','$2a$10$vr2QQBOcqdRd/W875JKnMeyE0DoVBMMbQHEHGPoHUv6RmIOaIk97m'),(8,'Lee@gmail.com','Lee','$2a$10$qQTYWaaNc3KpdG00YOI1QuuHhX3bBcWmun9.4Sdiy6nM1Bu4JEKAC'),(9,'Lee111@gmail.com','Lee111','$2a$10$DEvCgXobWbdRZBftZLukZeJ16CkgIX.xCuCLZALi4O1kunKBrfGem'),(10,'joe@gmail.com','joe','$2a$10$sVfa8Fva8OXHPG3FvDV/HeS.Cz1kzcgFrof5Tk3HACiJ1QOYyPKPW'),(11,'Hong@gmail.com','Hong','$2a$10$aRO9DoOjXZeTjMxMjqQ4O.e6LWuTWmegnu20ew0pp1xmDjkAKLFni');
-/*!40000 ALTER TABLE `usercredential` ENABLE KEYS */;
+LOCK TABLES `UserCredential` WRITE;
+/*!40000 ALTER TABLE `UserCredential` DISABLE KEYS */;
+INSERT INTO `UserCredential` VALUES (1,'123@gmail.com','Danny','$2a$10$1HvcDAqF0S4fs4CfigOxQuMsYkum6sUR53JKcpup9hmy4RwcBAPXO'),(2,'Tina@gmail.com','Tina','$2a$10$3tmiMWDEtky8saKr3DVLD.nPKXNyIr8uwQ/Wf1NE/21ByCqSqWS56'),(3,'Zachary@gmail.com','Zachary','$2a$10$N3wDCvxV.WeMMEuYOs3q0ukU1S7Ycnw02nR.uSnchLDt9yOghvbf2'),(4,'Lucy@gmail.com',NULL,'$2a$10$zfYqhaLMLN.aR5fMGFVVsuKPqTO7ivswQrmKGLHzyRcUr5FnXEIDm'),(5,'Peter@gmail.com',NULL,'$2a$10$M6eYuxQoLqPd/fnhw8ZgfODOFvVpmWMCnwXryCwF0vNfwkckXjw02'),(6,'Newbie@gmail.com','Newbie','$2a$10$fESxiHcMGVyNu4gRkEV/xuWTkC.iwqToyE1EJkQHfVEwS4rsmgEoS'),(7,'Newbie1@gmail.com','Newbie1','$2a$10$vr2QQBOcqdRd/W875JKnMeyE0DoVBMMbQHEHGPoHUv6RmIOaIk97m'),(8,'Lee@gmail.com','Lee','$2a$10$qQTYWaaNc3KpdG00YOI1QuuHhX3bBcWmun9.4Sdiy6nM1Bu4JEKAC'),(9,'Lee111@gmail.com','Lee111','$2a$10$DEvCgXobWbdRZBftZLukZeJ16CkgIX.xCuCLZALi4O1kunKBrfGem'),(10,'joe@gmail.com','joe','$2a$10$sVfa8Fva8OXHPG3FvDV/HeS.Cz1kzcgFrof5Tk3HACiJ1QOYyPKPW'),(11,'Hong@gmail.com','Hong','$2a$10$aRO9DoOjXZeTjMxMjqQ4O.e6LWuTWmegnu20ew0pp1xmDjkAKLFni');
+/*!40000 ALTER TABLE `UserCredential` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

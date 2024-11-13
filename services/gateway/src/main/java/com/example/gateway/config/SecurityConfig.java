@@ -15,7 +15,7 @@ import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 public class SecurityConfig {
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http, JwtAuthenticationManager authenticationManager, JwtSecurityContextRepository securityContextRepository) {
-        System.out.println("securityWebFilterChain <==方法在==》 SecurityConfig class");
+
         http.csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .cors(corsSpec -> corsSpec.configurationSource(corsConfigurationSource())) // 配置 CORS
                 .authorizeExchange(exchange -> exchange
@@ -30,11 +30,14 @@ public class SecurityConfig {
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
-        System.out.println("corsConfigurationSource <==方法在==》 SecurityConfig class");
+
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
         config.addAllowedOrigin("http://localhost:3000");
+        config.addAllowedOrigin("https://jiemazhb.github.io");
+        config.addAllowedOrigin("https://danny-portfolio.ngrok.app");
         config.addAllowedMethod("*");
+        config.addAllowedMethod("OPTIONS");
         config.addAllowedHeader("*");
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

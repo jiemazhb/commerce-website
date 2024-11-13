@@ -1,0 +1,11 @@
+
+
+spring:
+  profiles: docker
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://host.docker.internal:3306/javatechie    # for docker
+    username: root
+    password: Zhb290798466@
+
+
